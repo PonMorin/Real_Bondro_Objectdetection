@@ -1,2 +1,3 @@
-0 Class 1
-1 Class 2
+0 Plastic_Bottle
+1 noPlastic_Bottle
+2 Nothing
