@@ -8,7 +8,7 @@ class CustomDepthwiseConv2D(DepthwiseConv2D):
         super().__init__(**kwargs)
         self.groups = groups
 
-model = tf.keras.models.load_model('model/keras_model.h5', custom_objects={'DepthwiseConv2D': CustomDepthwiseConv2D})
+model = tf.keras.models.load_model('model/new_model/keras_model.h5', custom_objects={'DepthwiseConv2D': CustomDepthwiseConv2D})
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
 tflite_model = converter.convert()
-open("converted_model.tflite", "wb").write(tflite_model)
+open("model/new_model/bottle_model2.tflite", "wb").write(tflite_model)
