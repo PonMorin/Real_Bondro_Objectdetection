@@ -5,7 +5,8 @@ import time
 import serial
 
 # Set up serial communication
-ser = serial.Serial('/dev/ttyS0', 115200, timeout=1)  # Adjust port as needed
+ser = serial.Serial ("/dev/ttyS0", 9600)    #Open port with baud rate
+ser.flush()
 
 # Load the TFLite model and allocate tensors.
 interpreter = tf.lite.Interpreter(model_path="./model/tf_bottle_model2.tflite")
@@ -51,7 +52,7 @@ def prediction():
     return class_names[predicted_class], confidence_score
 
 def read_serial():
-    if ser.in_waiting > 0:
+    if ser.inWaiting() > 0:
         data = ser.readline().decode('utf-8').rstrip()
         print(f"Data from ESP32: {data}")
         return data
@@ -63,22 +64,17 @@ def write_serial(message):
 
 def main():
     while True:
-        start = time.time()
-        userInput = int(input("Enter 1 to take picture: "))
-        if userInput == 1:
+        esp_data = read_serial()
+        if esp_data == '1':
+            print(f"Response from ESP32: {esp_data}")
             takePicture()
             label, confidence = prediction()
+            if label == 'Plastic_Bottle':
+                # Send the result to ESP32
+                write_serial('1')
+            else:
+                write_serial('0')
 
-            # Send the result to ESP32
-            write_serial(f"Prediction: {label}, Confidence: {confidence:.2f}%")
-
-            # Optionally, read data from ESP32 (e.g., a confirmation message)
-            esp_data = read_serial()
-            if esp_data:
-                print(f"Response from ESP32: {esp_data}")
-
-            end = time.time()
-            print("Time of execution:", (end - start) * 10**3, "ms")
 
 if __name__ == '__main__':
     main()
