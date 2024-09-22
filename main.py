@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 
 # Load the TFLite model and allocate tensors.
-interpreter = tf.lite.Interpreter(model_path="model/converted_model.tflite")
+interpreter = tf.lite.Interpreter(model_path="model/tf_bottle_model2.tflite")
 interpreter.allocate_tensors()
 
 # Get input and output details
