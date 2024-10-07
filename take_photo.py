@@ -44,7 +44,7 @@ def classify_image(image):
 
 def prediction():
     # Read an image from file
-    image_path = 'Bottle.png'  # Replace with your image path
+    image_path = 'test/100.jpg'  # Replace with your image path
     image = cv2.imread(image_path)
 
     # Preprocess the image to fit the model input
