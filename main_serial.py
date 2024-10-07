@@ -38,7 +38,7 @@ def classify_image(image):
     return np.squeeze(predictions)
 
 def prediction():
-    image_path = 'Bottle.png'
+    image_path = '0.jpg'
     image = cv2.imread(image_path)
     img_resized = cv2.resize(image, (input_details[0]['shape'][1], input_details[0]['shape'][2]))
     img_resized = (img_resized.astype(np.float32) / 127.5) - 1
@@ -71,10 +71,11 @@ def main():
             label, confidence = prediction()
             if label == 'Plastic_Bottle':
                 # Send the result to ESP32
-                write_serial('1')
+                write_serial('True')
             else:
-                write_serial('0')
-
+                write_serial('False')
+        elif esp_data == '0':
+            print("Noting")
 
 if __name__ == '__main__':
     main()
