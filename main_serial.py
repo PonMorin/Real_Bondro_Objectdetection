@@ -47,7 +47,7 @@ def prediction():
     predicted_class = np.argmax(prediction)
     confidence_score = np.max(prediction) * 100
 
-    print(f"Prediction: {class_names[predicted_class]} ({confidence_score:.2f}%)")
+    # print(f"Prediction: {class_names[predicted_class]} ({confidence_score:.2f}%)")
     
     return class_names[predicted_class], confidence_score
 
@@ -59,23 +59,34 @@ def read_serial():
     return None
 
 def write_serial(message):
-    ser.write(message.encode('utf-8'))
+    # ser.write(message.encode('utf-8'))
+    message = message +"\n" #"\n" for line seperation
+    message = message.encode('utf_8')
+    ser.write(message)
     print(f"Sent to ESP32: {message}")
 
 def main():
+    check = 0
     while True:
         esp_data = read_serial()
-        if esp_data == '1':
+        if esp_data == '1' and check == 0:
             print(f"Response from ESP32: {esp_data}")
             takePicture()
             label, confidence = prediction()
-            if label == 'Plastic_Bottle':
+            print("label", label)
+            if label == '0 Plastic_Bottle':
                 # Send the result to ESP32
                 write_serial('True')
+                check = 1
             else:
                 write_serial('False')
-        elif esp_data == '0':
-            print("Noting")
+                check = 1
+        elif esp_data == '0' and check == 1:
+            print("End")
+            check = 0
+        else:
+            print("Nothing")
+            time.sleep(1)
 
 if __name__ == '__main__':
     main()
