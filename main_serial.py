@@ -38,7 +38,7 @@ def classify_image(image):
     return np.squeeze(predictions)
 
 def prediction():
-    image_path = '0.jpg'
+    image_path = 'Bottle.png'
     image = cv2.imread(image_path)
     img_resized = cv2.resize(image, (input_details[0]['shape'][1], input_details[0]['shape'][2]))
     img_resized = (img_resized.astype(np.float32) / 127.5) - 1
