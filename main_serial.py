@@ -66,10 +66,9 @@ def write_serial(message):
     print(f"Sent to ESP32: {message}")
 
 def main():
-    check = 0
     while True:
         esp_data = read_serial()
-        if esp_data == '1' and check == 0:
+        if esp_data == '1':
             print(f"Response from ESP32: {esp_data}")
             takePicture()
             label, confidence = prediction()
@@ -77,13 +76,11 @@ def main():
             if label == '0 Bottle':
                 # Send the result to ESP32
                 write_serial('True')
-                check = 1
             elif label == '1 No_Bottle':
                 write_serial('False')
-                check = 1
-        elif esp_data == '0' and check == 1:
-            print("End")
-            check = 0
+        # elif esp_data == '0' and check == 1:
+        #     print("End")
+        #     check = 0
         else:
             print("Nothing")
             time.sleep(1)
