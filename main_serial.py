@@ -78,6 +78,7 @@ def main():
                 write_serial('True')
             elif label == '1 No_Bottle':
                 write_serial('False')
+            time.sleep(4)
         # elif esp_data == '0' and check == 1:
         #     print("End")
         #     check = 0
