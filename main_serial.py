@@ -9,7 +9,7 @@ ser = serial.Serial ("/dev/ttyS0", 9600)    #Open port with baud rate
 ser.flush()
 
 # Load the TFLite model and allocate tensors.
-interpreter = tf.lite.Interpreter(model_path="./model/tf_bottle_model2.tflite")
+interpreter = tf.lite.Interpreter(model_path="./model/bondro_mark3/bondro_modelV3.tflite")
 interpreter.allocate_tensors()
 
 # Get input and output details
@@ -17,7 +17,7 @@ input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
 # Assuming you have a labels.txt file with the class names
-with open("model/labels.txt", "r") as f:
+with open("./model/bondro_mark3/labels.txt", "r") as f:
     class_names = [line.strip() for line in f.readlines()]
 
 def takePicture():
@@ -78,7 +78,7 @@ def main():
                 # Send the result to ESP32
                 write_serial('True')
                 check = 1
-            else:
+            elif label == '1 No_Bottle':
                 write_serial('False')
                 check = 1
         elif esp_data == '0' and check == 1:
