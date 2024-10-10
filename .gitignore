@@ -232,3 +232,4 @@ pyrightconfig.json
 
 .env
 test*.py
+model/test_model_3class
