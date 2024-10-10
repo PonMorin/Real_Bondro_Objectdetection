@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 
 # Load the TFLite model and allocate tensors.
-interpreter = tf.lite.Interpreter(model_path="/model/bondro_mark3/bondro_modelV3")
+interpreter = tf.lite.Interpreter(model_path="./model/bondro_mark3/bondro_modelV3.tflite")
 interpreter.allocate_tensors()
 
 # Get input and output details
@@ -11,7 +11,7 @@ input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
 # Assuming you have a labels.txt file with the class names
-with open("/model/bondro_mark3/labels.txt", "r") as f:
+with open("./model/bondro_mark3/labels.txt", "r") as f:
     class_names = [line.strip() for line in f.readlines()]
 
 # Function to make predictions
