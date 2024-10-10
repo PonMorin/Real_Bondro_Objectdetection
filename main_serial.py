@@ -76,9 +76,10 @@ def main():
             if label == '0 Bottle':
                 # Send the result to ESP32
                 write_serial('True')
+                time.sleep(4)
             elif label == '1 No_Bottle':
                 write_serial('False')
-            time.sleep(4)
+                time.sleep(4)
         # elif esp_data == '0' and check == 1:
         #     print("End")
         #     check = 0
