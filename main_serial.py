@@ -74,7 +74,7 @@ def main():
             takePicture()
             label, confidence = prediction()
             print("label", label)
-            if label == '0 Plastic_Bottle':
+            if label == '0 Bottle':
                 # Send the result to ESP32
                 write_serial('True')
                 check = 1
